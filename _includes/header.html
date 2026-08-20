@@ -2,9 +2,31 @@
   <div class="row align-items-start gy-3 gx-0">
     <div class="col-12 col-md-6 px-3">
       <a class="d-block w-100 text-decoration-none" href="{{ '/' | relative_url }}">
-        <h1 class="headline display-3 text-secondary lh-1 py-0 my-0 mb-0 w-100">Coding-with.ai</h1>
+        <h1 class="headline lh-1 py-0 my-0 mb-0 w-100">
+          <img class="w-100" src="{{ '/assets/logos/coding-with-ai-teach.svg' | relative_url }}" alt="Coding-with.ai">
+        </h1>
       </a>
       <p class="mb-0">{{ site.description }}</p>
+      <p class="mb-0" id="ai-says" aria-live="polite">AI says: <span id="ai-says-quote"></span></p>
+      <script type="application/json" id="ai-says-data">{{ site.data.ai-says | jsonify }}</script>
+      <script>
+        (function () {
+          var dataEl = document.getElementById("ai-says-data");
+          var quoteEl = document.getElementById("ai-says-quote");
+          if (!dataEl || !quoteEl) return;
+
+          var quotes = JSON.parse(dataEl.textContent);
+          if (!quotes.length) return;
+
+          var index = Math.floor(Math.random() * quotes.length);
+          quoteEl.textContent = quotes[index];
+
+          setInterval(function () {
+            index = (index + 1) % quotes.length;
+            quoteEl.textContent = quotes[index];
+          }, 8000);
+        })();
+      </script>
     </div>
     <div class="col-12 col-md-6">
       <img class="w-100" src="{{ '/assets/images/banner.png' | relative_url }}" alt="">
