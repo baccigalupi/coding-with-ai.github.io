@@ -1,0 +1,19 @@
+// Bootstrap (pruned)
+// Only the subset needed for this site:
+// core compilation, layout, typography, navbar, and utilities.
+// Original bootstrap.scss is untouched for reference.
+
+@import "functions";
+@import "variables";
+@import "maps";
+@import "mixins";
+@import "root";
+@import "reboot";
+@import "containers";
+@import "grid";
+@import "type";
+@import "nav";
+@import "navbar";
+@import "utilities";
+@import "utilities/api";
+@import "card";

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@600&display=swap" rel="stylesheet">
+</head>
+<body class="p-3 p-md-0 d-flex flex-column min-vh-100">
+  <div class="container-md main-container mt-md-3 mb-md-5 flex-grow-1 d-flex flex-column px-0">
+    {% include header.html %}
+
+    <main class="main-content flex-grow-1">
+      {{ content }}
+    </main>
+
+    {% include footer.html %}
+  </div>
+</body>
+</html>

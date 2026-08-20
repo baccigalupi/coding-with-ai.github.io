@@ -1,0 +1,8 @@
+---
+description: Minimize churn and token burn
+alwaysApply: true
+---
+
+- If user rejects direction, stop and ask for exact preferred delta.
+- Do not produce multiple alternatives unless user asks for options.
+- One implementation pass at a time; no follow-on changes without approval.

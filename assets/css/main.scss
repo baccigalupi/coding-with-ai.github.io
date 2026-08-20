@@ -1,0 +1,250 @@
+---
+---
+
+// ============================================
+// STEP 1: Override Bootstrap variables FIRST
+// ============================================
+// Set your custom colors and settings BEFORE importing Bootstrap
+// This way Bootstrap compiles with your theme baked in
+
+$no-op: true;
+
+// CUSTOM VARIABLES - Add your project-specific overrides below
+$grayish: #a6e9d4;
+$fire: #b36200;
+$darker-fire: darken($fire, 10%);
+$hunter-green: #083c0b;
+
+
+$primary: #692300;
+$secondary: #364e67;
+$body-color: $primary;
+$border-color: $fire;
+
+$body-bg: #467122;
+$main-bg: #e7c88a;
+$content-bg: #fff9c4;
+
+$border-radius: 1.5rem;
+$border-radius-lg: 3rem;
+$border-radius-sm: .75rem;
+
+$h1-font-size: 1.75rem;
+$h2-font-size: 1.5rem;
+$h3-font-size: 1.25rem;
+$h4-font-size: 1rem;
+$h5-font-size: 0.9rem;
+$h6-font-size: 0.75rem;
+
+
+// ============================================
+// STEP 2: Import Bootstrap source
+// ============================================
+@import "bootstrap/bootstrap_pruned";
+
+// ============================================
+// STEP 3: Add your custom styles
+// ============================================
+
+body {
+  background-color: $body-bg;
+  color: $body-color;
+  font-family: $font-family-monospace;
+}
+
+h4, h5, h6 {
+  font-weight: bold;
+}
+h1, h2, h3 {
+  font-family: "Martian Mono", 'Courier New', Courier, monospace;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+.main-container {
+  background-color: $main-bg;
+  filter: drop-shadow(6px 10px 0px #335219);
+  overflow: hidden;
+}
+
+.headline {
+  font-family: "Silkscreen", 'Courier New', Courier, monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.main-content {
+  background-color: $content-bg;
+}
+
+.newspaper-columns {
+  column-count: 1;
+  column-gap: 1.75rem;
+
+  h1 {
+    -webkit-column-span: all;
+    column-span: all;
+  }
+
+  img,
+  figure,
+  pre,
+  blockquote,
+  ul,
+  ol,
+  table {
+    break-inside: avoid;
+  }
+}
+
+.chat-columns {
+  column-count: 1;
+  column-gap: 1.5rem;
+
+  h1 {
+    -webkit-column-span: all;
+    column-span: all;
+  }
+}
+
+.about-author-image {
+  max-width: 150px;
+}
+
+.card.chat-bubble {
+  border-width: 0;
+  padding: 1rem 2rem 0.5rem;
+  width: 75%;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.card.chat-bubble.agent {
+  background-color: $grayish;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 40px;
+    border-width: 15px 15px 0;
+    border-style: solid;
+    border-color: $grayish transparent transparent;
+  }
+}
+
+.card.chat-bubble.user {
+  background-color: $fire;
+  color: white;
+  margin-left: auto;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    right: 40px;
+    border-width: 15px 15px 0;
+    border-style: solid;
+    border-color: $fire transparent transparent;
+  }
+}
+
+.chat-bubble-caption {
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+  margin-bottom: 2rem;
+  color: $hunter-green;
+
+  &.agent {
+    padding-left: 40px;
+  }
+
+  &.user {
+    padding-right: 40px;
+    text-align: right;
+  }
+}
+
+.home-layout {
+  position: relative;
+}
+
+.home-recent-posts {
+  color: $secondary;
+  margin-top: 1.5rem;
+
+  a {
+    color: $secondary;
+  }
+}
+
+.home-layout .newspaper-columns {
+  column-count: 1;
+}
+
+// md and up (>= 768px)
+@include media-breakpoint-up(md) {
+  .home-layout {
+    padding-right: 15.5rem;
+  }
+
+  .home-layout .newspaper-columns {
+    column-count: 1;
+  }
+
+  .home-recent-posts {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 14.5rem;
+    margin-top: 0;
+  }
+
+  .post-chat.home-layout {
+    padding-right: 13rem;
+  }
+
+  .post-chat.home-layout .home-recent-posts {
+    width: 12rem;
+  }
+
+  .newspaper-columns {
+    column-count: 2;
+  }
+
+  .chat-columns {
+    column-count: 2;
+  }
+}
+
+// lg and up (>= 992px)
+@include media-breakpoint-up(lg) {
+  .home-layout {
+    padding-right: 18.5rem;
+  }
+
+  .home-layout .newspaper-columns {
+    column-count: 2;
+  }
+
+  .home-recent-posts {
+    width: 17rem;
+  }
+
+  .post-chat.home-layout {
+    padding-right: 15rem;
+  }
+
+  .post-chat.home-layout .home-recent-posts {
+    width: 14rem;
+  }
+
+  .newspaper-columns {
+    column-count: 3;
+  }
+
+  .chat-columns {
+    column-count: 2;
+  }
+}

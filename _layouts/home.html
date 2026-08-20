@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+<section class="home">
+  <section class="home home-layout">
+    <a class="d-block d-md-none mb-3" href="#recent-posts">Recent posts ... below</a>
+
+    <div class="home-main-content">
+      <div class="newspaper-columns">
+        {{ content }}
+      </div>
+
+      <div class="newspaper-columns">
+        {{ site.posts.first.content }}
+      </div>
+    </div>
+
+    <aside class="home-recent-posts" id="recent-posts">
+      <h3 class="mt-4">Recent posts</h3>
+      <ul>
+        {% for post in site.posts limit:3 %}
+        <li>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+      <a href="/toc">See all posts</a>
+    </aside>
+  </section>
+</section>

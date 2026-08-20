@@ -1,0 +1,8 @@
+# Site settings
+title: Coding with AI
+description: Notes on building with AI tools
+author: Coding with AI
+permalink: /:title/
+
+# Build settings
+# No theme - using custom layouts

@@ -1,0 +1,11 @@
+---
+description: Do not propose or require git worktrees
+alwaysApply: true
+---
+
+# Workspace Policy: No Worktree Flow
+
+- Do not suggest, require, or ask about git worktrees.
+- Execute all tasks in the current repository workspace unless the user explicitly requests a worktree.
+- Do not block implementation on worktree setup.
+- If a skill suggests worktrees, treat this project rule as higher priority and continue inline.

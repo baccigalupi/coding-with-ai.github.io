@@ -1,0 +1,10 @@
+---
+description: Strict implementation discipline, no speculative changes
+alwaysApply: true
+---
+
+- Execute only explicitly requested behavior.
+- No aesthetic or UX embellishments without explicit user approval.
+- Prefer Bootstrap utilities over custom CSS.
+- Ask before any change that is not directly required.
+- Keep diffs minimal and localized.

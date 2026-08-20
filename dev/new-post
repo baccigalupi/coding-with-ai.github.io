@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+
+require "fileutils"
+
+ROOT_DIR = File.expand_path("..", __dir__)
+POSTS_DIR = File.join(ROOT_DIR, "_posts")
+
+def parse_title(argv)
+  return argv[1].to_s.strip if argv[0] == "--title" && argv[1]
+  return argv.join(" ").strip unless argv.empty?
+
+  "Untitled Post"
+end
+
+def slugify(title)
+  slug = title.downcase
+  slug = slug.gsub(/[^a-z0-9\s-]/, "")
+  slug = slug.gsub(/\s+/, "-")
+  slug = slug.gsub(/-+/, "-")
+  slug = slug.gsub(/^-|-$/, "")
+  slug.empty? ? "untitled-post" : slug
+end
+
+def build_content(title, timestamp)
+  <<~MARKDOWN
+    ---
+    layout: post
+    title: "#{title.gsub('"', '\\"')}"
+    date: #{timestamp.strftime("%Y-%m-%d %H:%M:%S %z")}
+    description: ""
+    ---
+
+    # #{title}
+  MARKDOWN
+end
+
+def main(argv)
+  title = parse_title(argv)
+  timestamp = Time.now
+  slug = slugify(title)
+
+  FileUtils.mkdir_p(POSTS_DIR)
+
+  filename = "#{timestamp.strftime('%Y-%m-%d')}-#{slug}.md"
+  path = File.join(POSTS_DIR, filename)
+
+  if File.exist?(path)
+    warn "Post already exists: #{path}"
+    exit 1
+  end
+
+  File.write(path, build_content(title, timestamp))
+  puts "Created #{path}"
+end
+
+main(ARGV)
