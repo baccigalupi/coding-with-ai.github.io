@@ -1,0 +1,23 @@
+<p class="" id="ai-says" aria-live="polite">
+  <span class="text-secondary fw-bold">AI says:</span>
+  <span class="text-secondary" id="ai-says-quote"></span>
+</p>
+<script type="application/json" id="ai-says-data">{{ site.data.ai-says | jsonify }}</script>
+<script>
+  (function () {
+    var dataEl = document.getElementById("ai-says-data");
+    var quoteEl = document.getElementById("ai-says-quote");
+    if (!dataEl || !quoteEl) return;
+
+    var quotes = JSON.parse(dataEl.textContent);
+    if (!quotes.length) return;
+
+    var index = Math.floor(Math.random() * quotes.length);
+    quoteEl.textContent = quotes[index];
+
+    setInterval(function () {
+      index = (index + 1) % quotes.length;
+      quoteEl.textContent = quotes[index];
+    }, 60000);
+  })();
+</script>
