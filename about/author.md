@@ -9,7 +9,7 @@ permalink: /about/author
 
 I currently freelance as a development/product consultant, so if you want to see these ideas applied to your team and process get in touch. 
 
-<img src="/assets/images/baccigalupi.jpeg" alt="ATLAS detector" class="float-start me-3">
+<img src="/assets/images/baccigalupi.jpeg" alt="black and white portrait" class="float-start me-3">
 
 I learned to program when I was 14. It was the best puzzle game ever and continues to be a real love. That's true even in this age when we don't write code, and sometimes we don't even glance at what's produced by agents.
 
