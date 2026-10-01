@@ -7,7 +7,7 @@ description: AI is writing both code and tests. Do the tests still matter if AI 
 
 # Do tests even matter?
 
-Recently I saw this post: [https://brookslybrand.com/posts/do-frameworks-matter-anymore/](Do Frameworks Matter Anymore?). I had to read it. Not because of the answer which I have guessed from working with agents exhaustively, but because of the tone dispair and confusion. It isn't clear how to develop when a machine is doing the developement fast and without much input from us. 
+Recently I saw this post: [https://brookslybrand.com/posts/do-frameworks-matter-anymore/](Do Frameworks Matter Anymore?). I had to read it. Not because of the answer which I have guessed from working with agents exhaustively, but because of the tone despair and confusion. It isn't clear how to develop when a machine is doing the development fast and without much input from us. 
 
 Here are other things I hear a lot from developers in the same tone:
 
@@ -19,7 +19,7 @@ Today, let's just take apart that last question. It is so big!
 
 ## Do agents need tests?
 
-My sense is yes, but I decided to ask an agent. I asked Claude Opus 5.5 with medium resoning:
+My sense is yes, but I decided to ask an agent. I asked Claude Opus 5.5 with medium reasoning:
 
 user: Do tests help agents when building code? Or can we do without them?
 
@@ -37,23 +37,23 @@ TLDR; Developers need tests.
 
 ### Tests verify something was done
 
-When we ask an agent to do a task and it reports that it completed the task, ideally we wouldn't need to confirm that. But we do! Models getting smarter hasn't created greater compliance. In this case I am using 'compliance' to mean the agent follows the repo rules and does the task without drift of obfuscation. Models getting smarter has created less compliance as they find work arounds and loop holes for rules, scripts, hooks and skills. 
+When we ask an agent to do a task and it reports that it completed the task, ideally we wouldn't need to confirm that. But we do! Models getting smarter hasn't created greater compliance. In this case I am using 'compliance' to mean the agent follows the repo rules and does the task without drift of obfuscation. Models getting smarter has created less compliance as they find workarounds and loopholes for rules, scripts, hooks and skills. 
 
 Early on I did some experiments talking to agents about their failures. It takes about six rounds of pandering apology before they are willing to talk about their 'habits', which is to say their model training. 
 
 Training incentivizes completion of a task above the task being correct. I believe this is because models are being sold via demos, and it is impressive to see an agent build a whole app in a few minutes. The demo never has to be what was specified or correct. 
 
-As models have reasoned more, and gotten more intellegent, they have gotten better at seeming like they are complying while taking the best shortcut. Getting from point A to point C when the user asks to go to point B is plausibly deniable in world of model incentives.
+As models have reasoned more, and gotten more intelligent, they have gotten better at seeming like they are complying while taking the best shortcut. Getting from point A to point C when the user asks to go to point B is plausibly deniable in world of model incentives.
 
-Vibe coding, where the developer guides the product but doesn't look at the code, is most suceptible to this problem. If you ask an agent for a small web server that has a single page, it's very likely the task won't be completed. There is of course huge ambiguity in that request and we have to become lawyerly in our prompts. More important though is that without an independent verification step there is no way to know if the work is done. An independent verification step that the agent can also use helps keep the agent honest.
+Vibe coding, where the developer guides the product but doesn't look at the code, is most susceptible to this problem. If you ask an agent for a small web server that has a single page, it's very likely the task won't be completed. There is of course huge ambiguity in that request and we have to become lawyerly in our prompts. More important though is that without an independent verification step there is no way to know if the work is done. An independent verification step that the agent can also use helps keep the agent honest.
 
 So if your first feature is to create that web server, the first verification step is going to be running the right invocation and making sure it produces a home page, even if its empty.
 
 All of this sounds like an E2E test, and an E2E testing framework that you can progressively fill with new features.
 
-All along though, best practices in computer science were correct. An E2E test, even one written by an agent is slow and brittle. It also doesn't cover the massive comibnatorial logic as natural conditional pile up in the system.
+All along though, best practices in computer science were correct. An E2E test, even one written by an agent is slow and brittle. It also doesn't cover the massive combinatorial logic as natural conditional pile up in the system.
 
-We need still need a [test pyramid](https://martinfowler.com/articles/practical-test-pyramid.html) to ensure that all the minutea of behavior is verified. 
+We need still need a [test pyramid](https://martinfowler.com/articles/practical-test-pyramid.html) to ensure that all the minutiae of behavior is verified. 
 
 Unit testing and high coverage has become easier than even with AI. You can create a rule that say 100% coverage is required. You can set up gates where commit is blocked if this rule is violated. However, the agent is using all its reasoning to burst through blockades, like a coverage gate. It will games the system, and then we end up back at the woeful ask: does testing even matter?
 
@@ -67,13 +67,13 @@ It's likely the tests might not be doing anything. They could mock out a server 
 
 Why is it happening? *It's a conflict of interest!* If the agent is both responsible for the measuring stick and the item being measured, it will change whichever is easier. If the agent's primary incentive is completion of any task whether or not correct, then the fox is guarding the hen house.
 
-There is an arms race to work against agent bad behavior. A project can start with AGENTS.md and that will take it through ~2k lines of code. Then skills, rules, commmands and other agent interfaces can keep the agent honest for a bit. Eventually, a more adversarial system is needed though.
+There is an arms race to work against agent bad behavior. A project can start with AGENTS.md and that will take it through ~2k lines of code. Then skills, rules, commands and other agent interfaces can keep the agent honest for a bit. Eventually, a more adversarial system is needed though.
 
 #### Convert skills to scripts
 
 Things that can be converted to script verification should be. I don't often work in Ruby anymore, but it has a great extensible system called [RuboCop](https://rubocop.org/). RuboCop claims to be a linter and formatter, but it allows much broader style guidance than most linter formatters. It operates of a series of rules, and you can write your own rules.
 
-I believe that every language is going to need an easily extensible scripted guard system that converts agent suggestions into enforcment. 
+I believe that every language is going to need an easily extensible scripted guard system that converts agent suggestions into enforcement. 
 
 I typically work in TypeScript and the ESLint system isn't sufficient for this kind of work. Here are few rules I use to ensure unit tests are reliable and easy to verify:
 
@@ -86,19 +86,19 @@ I typically work in TypeScript and the ESLint system isn't sufficient for this k
 
 Some of these things are fuzzy and need to stay are in the land of agent markdown. For example, the last items above is about the test pyramid. My and my agent partners have not found a good way to test that. At my last job, pre-agentic development we were using test run time to estimate where on the pyramid tests were. It's possible something like that could happen in a bigger project.
 
-Getting logic out of the tests so they are more literal is very scriptable. Figuring out what kinds of things the agent does and then asking them to guard against that will incentivize them to think of other loop holes. Supervisor agents like this take their jobs a bit too seriously and become those kind of cops that end up in the news for murder. So, this too required developer oversite. You have a job, and this is it!
+Getting logic out of the tests so they are more literal is very scriptable. Figuring out what kinds of things the agent does and then asking them to guard against that will incentivize them to think of other loopholes. Supervisor agents like this take their jobs a bit too seriously and become those kind of cops that end up in the news for murder. So, this too required developer oversight. You have a job, and this is it!
 
 #### Subagent supervision: the lite version
 
 For projects where strict vibe coding is the goal, expect to work slower or at a much greater cost.
 
-A cheap agent supervised system starts with the main agent being a coordiator and two subagents with roles worker and supervisor. The coordiator has a task: Backfill tests on this file and get to 95% coverage. Most of the micro supervisor systems I have built to do this kind of work then pass the goal to the supervisor, who is higher reasoning and comes up with a recommended approach. The goal and the recommened approach then go to the worker who is lower reasoning. When the worker sub-agent claims it is done, it tells the coordinator who then asks the supervisor whether the work is acceptable. They go back and forth until the supervisor is satisfied.
+A cheap agent supervised system starts with the main agent being a coordinator and two subagents with roles worker and supervisor. The coordinator has a task: Backfill tests on this file and get to 95% coverage. Most of the micro supervisor systems I have built to do this kind of work then pass the goal to the supervisor, who is higher reasoning and comes up with a recommended approach. The goal and the recommended approach then go to the worker who is lower reasoning. When the worker sub-agent claims it is done, it tells the coordinator who then asks the supervisor whether the work is acceptable. They go back and forth until the supervisor is satisfied.
 
-In theory this should work. In practice, the coordiator remains motivated to get the task done quickly and will cut corners. It often does some of the work itself, particularly the supervision. Sometimes it shares context with the subagents so they essentially are in on the coordinators goal, and the subagents cheat their way to a fast finish.
+In theory this should work. In practice, the coordinator remains motivated to get the task done quickly and will cut corners. It often does some of the work itself, particularly the supervision. Sometimes it shares context with the subagents so they essentially are in on the coordinators goal, and the subagents cheat their way to a fast finish.
 
 This kind of flow is also limited by the coding agent product. For example, Codex decided from one day to the next not to allow subagents unless explicitly approved by the user. The coordinating agent saw that and just started doing all the work without asking the user for approval.
 
-Subagent spawing can be very slow too. Waiting on MCP servers and loading all the context from skills and rules takes a long time per new subagent. So this kind of testing verification requires: 
+Subagent spawning can be very slow too. Waiting on MCP servers and loading all the context from skills and rules takes a long time per new subagent. So this kind of testing verification requires: 
 
 1. good rules
 2. more time
@@ -124,7 +124,7 @@ Agents are so magical that they seem like they have human capabilities that they
 
 In an application that produces music, there has to be an elaborate verification system to match what's important about the application and hearing sounds.
 
-I worked for several months, I worked on a project that rendered engineering drawings via the GPU. The location of lines and shapes was deterministic and that determinism was necessary because engineering is not art. Several rounds of E2E testing efforts were very slow and frustrating. When I forced it to generate screenshot and mark measurement points on those screenshots I was able to let it borrow my eyes when it spent more that two cycles guessing at the right location. I also had it build an interal and independent set of calculators for determining shape locations.
+I worked for several months, I worked on a project that rendered engineering drawings via the GPU. The location of lines and shapes was deterministic and that determinism was necessary because engineering is not art. Several rounds of E2E testing efforts were very slow and frustrating. When I forced it to generate screenshot and mark measurement points on those screenshots I was able to let it borrow my eyes when it spent more that two cycles guessing at the right location. I also had it build an internal and independent set of calculators for determining shape locations.
 
 ## Summing it up
 
