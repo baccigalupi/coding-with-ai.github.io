@@ -1,7 +1,7 @@
 ---
 layout: default
 title: About the header content
-description: How images and text were generated
+description: How header images and text were generated
 permalink: /about/header
 ---
 
@@ -11,7 +11,7 @@ Recently I saw on social media a cartoon where a disgruntled man was vacuuming w
 
 People argue that AI for software development is unethical because it was trained on unauthorized code. That is very true. There are some mitigating realities though: The backbone of the software industry is open-source code where the author intends for the code to be known, used and rewritten. Private code contributions are generally well-paid and the loss of intellectual property happens at the corporate level.
 
-When it comes to AI generated creative content there is a huge anti-ethical jump. Art and music are rarely on a public license; it is not intended to be modified or taken apart and reused. AI generated creative content is not the same as code generation. Most of the novels I read are written by authors with full-time non-writing jobs. That their work goes into AI to be spit out as a formula is unethical. For that reason, I will not use AI generated images or writing ... anywhere but this blog.
+When it comes to AI generated creative content there is a huge anti-ethical leap. Art and music are rarely on a public license; it is not intended to be modified or taken apart and reused. AI generated creative content is not the same as code generation. Most of the novels I have read are written by authors with full-time non-writing jobs. That their work goes into AI to be spit out as a formula is unethical. For that reason, I will not use AI generated images or writing anywhere ... but this blog.
 
 I know! I swear it's not for the art. It is for the experiment, and for the comedy. This site is my only playground for exploring what AI is doing with all the stolen creative property, and it is horrifying.
 
@@ -49,7 +49,7 @@ I wanted to push the agent so I next asked that these three images have an andro
   <img src="/assets/images/developer-generation/logo-dev-wave-rpg-androgynous-225w.png" alt="androgynous developer waving with coffee and their arm is backwards" class="me-3">
 </div>
 
-It seems that 'androgynous' is 2/3 synonymous with Asian. That seemed kind of porn-y for reasons I couldn't identify. It's definitely not good.
+It seems that 'androgynous' is 2/3 synonymous with Asian. That seemed racist and kind of porn-y for reasons I couldn't identify. It's definitely not good.
 
 After that I focused on the dungeon images with the backwards arm. I changed what androgynous meant. I changed the color palette and had an interesting disagreement about whether lipstick and beards belong on the same developer. When the agent chose a forest color theme, the dungeon sprouted leaves!
 
@@ -63,11 +63,11 @@ I also couldn't help myself and I spilled the coffee and tried to suggest it was
 
 ### The rotating slogans
 
-Working with agent products is currently challenging. When I started to focus on agents and compliance, I was mostly using Codex, and it was the beginning of 2026. The volatility of upgrading was huge. Permissions regressed with every release. One of the first times it happened, I had Codex investigate and file a bug. I looked at the CR Codex had attributed to the failure and it was a massive string of json that somehow became the code with equally obscure tests. It explained why I felt like I was skiing down an avalanche. 
+Working with agent products (IDEs and Chat applicaitons) is currently challenging. When I started to focus on agents and compliance, I was mostly using Codex, and it was the beginning of 2026. The volatility of upgrading was huge. Permissions regressed with every release. One of the first times it happened, I had Codex investigate and file a bug. I looked at the CR Codex had attributed to the failure and it was a massive string of json that somehow became the code with equally obscure tests. It explained why I felt like I was skiing down an avalanche. 
 
 So I asked the agent, using the same Cursor dynamic model delegation, to give me some statements about how working with AI is like rebuilding the plane while it is flying.
 
-The agent generated some very positive testaments befitting marketing for AI. It's easy for me to forget that AI is just an auto-complete engine and not a broken and confusing person. When I received the glowing statements, I responded casually: "Oh lord, if only that were true. I spend my life in dread for agent updates because I can't count on anything working afterwards."
+The agent generated some very positive testaments befitting marketing for AI. I responded casually: "Oh lord, if only that were true. I spend my life in dread for agent updates because I can't count on anything working afterwards."
 
 The agent very obligingly created some real jewels:
 
