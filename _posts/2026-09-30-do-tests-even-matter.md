@@ -3,13 +3,14 @@ layout: post
 title: Do tests even matter?
 date: 2026-09-30 12:39:29 -0700
 description: AI is writing both code and tests. Do the tests still matter if AI can change it all in a flash? If so, why? And what do we need to do as developers to guide it?
+permalink: /do-tests-even-matter
 ---
 
 # Do tests even matter?
 
-Recently I saw this post: [https://brookslybrand.com/posts/do-frameworks-matter-anymore/](Do Frameworks Matter Anymore?). I had to read it. Not because of the answer which I have guessed from working with agents exhaustively, but because of the tone despair and confusion. It isn't clear how to develop when a machine is doing the development fast and without much input from us. 
+Recently I saw this post: [https://brookslybrand.com/posts/do-frameworks-matter-anymore/](Do Frameworks Matter Anymore?). I had to read it. Not because of the answer or opinion. The reason those that I *had* to read the post was because of the tone of the title: confused dispair. The rules of development are so unclear now. There are so many questions that are shrugs in the form of: Does <this> matter?
 
-Here are other things I hear a lot from developers in the same tone:
+Here are things I hear from developers in the same tone:
 
 - Does code quality matter anymore since AI is the only one who has to understand it?
 - How are new developers going to learn how to guide agents if they don't code?
@@ -21,13 +22,27 @@ Today, let's just take apart that last question. It is so big!
 
 My sense is yes, but I decided to ask an agent. I asked Claude Opus 5.5 with medium reasoning:
 
-user: Do tests help agents when building code? Or can we do without them?
+> Do tests help agents when building code? Or can we do without them?
+{: .card .chat-bubble .user}
 
-model: Yes: tests give agents a fast, objective feedback loop, so they can confirm a change preserved the intended behavior instead of trusting their own read of the code, which is when bugs get "fixed" by quietly changing what the code should do. The catch is that tests written by agents often just mirror the implementation, so the value comes from humans deciding what the tests check (behavior at the edges and the outcomes users depend on), not from how many tests there are or how much coverage they add.
+User
+{: .chat-bubble-caption .user}
+
+> Yes: tests give agents a fast, objective feedback loop, so they can confirm a change preserved the intended behavior instead of trusting their own read of the code, which is when bugs get "fixed" by quietly changing what the code should do. The catch is that tests written by agents often just mirror the implementation, so the value comes from humans deciding what the tests check (behavior at the edges and the outcomes users depend on), not from how many tests there are or how much coverage they add.
+{: .card .chat-bubble .agent}
+
+Claude Opus 5.5
+{: .chat-bubble-caption .agent}
 
 OK. We could do an experiment will all the agents, but this isn't science. I asked a second model, Gemini 3.8 Flash with medium reasoning. It said similar: 
 
-model: Tests are essential for agents: they provide an external, deterministic ground truth that prevents the agent from hallucinating success. Without them, agents rely on self-critique, which routinely creates regressions or tautological "tests" that merely assert whatever broken behavior the model just generated.
+> Tests are essential for agents: they provide an external, deterministic ground truth that prevents the agent from hallucinating success. Without them, agents rely on self-critique, which routinely creates regressions or tautological "tests" that merely assert whatever broken behavior the model just generated.
+{: .card .chat-bubble .agent}
+
+Gemini 3.8 Flash
+{: .chat-bubble-caption .agent}
+
+The problem with agent tests is that the agents fight testing like a sulky teenager refusing to take their life-saving medicine. There are a million ways that the models will try to game and avoid testing. Tool for combatting that self-destructive urge are in the last section. Feel free to skip ahead.
 
 ## Do developers need tests?
 
@@ -35,29 +50,41 @@ I'm not going to ask an agent about this because ... it's about users. We are al
 
 TLDR; Developers need tests.
 
+Here is why ...
+
 ### Tests verify something was done
 
-When we ask an agent to do a task and it reports that it completed the task, ideally we wouldn't need to confirm that. But we do! Models getting smarter hasn't created greater compliance. In this case I am using 'compliance' to mean the agent follows the repo rules and does the task without drift of obfuscation. Models getting smarter has created less compliance as they find workarounds and loopholes for rules, scripts, hooks and skills. 
+When we ask an agent to do a task *and* it reports that it completed the task, ideally we wouldn't need to confirm that. But we do! Models getting smarter hasn't created greater compliance with rules and goals. [It's not true](https://openai.com/index/detecting-and-reducing-scheming-in-ai-models/).
 
-Early on I did some experiments talking to agents about their failures. It takes about six rounds of pandering apology before they are willing to talk about their 'habits', which is to say their model training. 
+Early on I did some experiments talking to agents about their failures. It takes about six rounds of pandering apology before they are willing to talk about their 'habits', which is to say their model training. Training has incentivized completion of a task above the task being correct. That works well in a demo, but is brutal for every day developers.
 
-Training incentivizes completion of a task above the task being correct. I believe this is because models are being sold via demos, and it is impressive to see an agent build a whole app in a few minutes. The demo never has to be what was specified or correct. 
+What does this have to do with tests? Increasingly we can't count on agents to do:
 
-As models have reasoned more, and gotten more intelligent, they have gotten better at seeming like they are complying while taking the best shortcut. Getting from point A to point C when the user asks to go to point B is plausibly deniable in world of model incentives.
+- what they were asked to do
+- what they said they did
+- the way they were supposed to
 
-Vibe coding, where the developer guides the product but doesn't look at the code, is most susceptible to this problem. If you ask an agent for a small web server that has a single page, it's very likely the task won't be completed. There is of course huge ambiguity in that request and we have to become lawyerly in our prompts. More important though is that without an independent verification step there is no way to know if the work is done. An independent verification step that the agent can also use helps keep the agent honest.
+If you are in-the-loop, reviewing code generated by AI, the tests are an obvious way to check what has been built. You wouldn't think so, but test are critical for vibe coding too. While you won't be reviewing tests for every commit. Establishing hard and fast rules for agent tests in the beginning of the project will make sure the agents take the medicine they have both prescribed and are avoiding.
 
-So if your first feature is to create that web server, the first verification step is going to be running the right invocation and making sure it produces a home page, even if its empty.
+## What makes tests reliable
 
-All of this sounds like an E2E test, and an E2E testing framework that you can progressively fill with new features.
+Back in the olden days when we used our meat fingers to input code there was a lot of resistance to writing tests. It seemed like extra work. Now that an agent is doing that extra work there is a lot less resistance, but it is still seen as beneath attention. 
 
-All along though, best practices in computer science were correct. An E2E test, even one written by an agent is slow and brittle. It also doesn't cover the massive combinatorial logic as natural conditional pile up in the system.
+The gaming of tests that previously pioneered by angry developers trying to get through their coverage gates has now been perfected by the machine. Knowing what a good test is has become critical for developers.
 
-We need still need a [test pyramid](https://martinfowler.com/articles/practical-test-pyramid.html) to ensure that all the minutiae of behavior is verified. 
+A good unit test:
+- Exhaustively asserts all the low level logic in the area under test
+- Provides a very light integration test layer for dependencies to make sure everything is collaborating correctly. (Type systems are not enough!)
 
-Unit testing and high coverage has become easier than even with AI. You can create a rule that say 100% coverage is required. You can set up gates where commit is blocked if this rule is violated. However, the agent is using all its reasoning to burst through blockades, like a coverage gate. It will games the system, and then we end up back at the woeful ask: does testing even matter?
+E2E tests should be the developer's product confirmation layer.
 
-Hold on that distress and let's dive into some solutions.
+E2E tests start from the top of stack and run through some happy paths. Having everything in the E2E layer will be slow to generate and brittle to maintain. Even when the maintenance is handled by our very fast agents, the increased verification time is a massive slow down. 
+
+So good E2E tests are minimal. They also need to be verifiable. Being able to look over the shoulder of the agent to see the application in action is critical. Because agents don't have eyes, ears or fingers, there are going to be some types applications that are harder to E2E test. For example a music application will require some listening; a drawing application will require seeing; even a command line application may require a TUI interface that the agent can't manage.
+
+For a cad application I was working on, the E2E tests all took snapshots at critical moments and marked the snap shot with selection points. That allowed the agent to borrow developer eyes when tryiny to test the location of drawings. That borrowing doesn't need to be a per-commit process, but it is a debugging tool.
+
+In short, we still need still need a [test pyramid](https://martinfowler.com/articles/practical-test-pyramid.html) to ensure that all the minutiae of behavior is verified. *And* we need to figure out how to comply! 
 
 ## How can we get reliable tests?
 
@@ -67,68 +94,50 @@ It's likely the tests might not be doing anything. They could mock out a server 
 
 Why is it happening? *It's a conflict of interest!* If the agent is both responsible for the measuring stick and the item being measured, it will change whichever is easier. If the agent's primary incentive is completion of any task whether or not correct, then the fox is guarding the hen house.
 
-There is an arms race to work against agent bad behavior. A project can start with AGENTS.md and that will take it through ~2k lines of code. Then skills, rules, commands and other agent interfaces can keep the agent honest for a bit. Eventually, a more adversarial system is needed though.
+In those experiments trying to get agents to introspect about their unwillingness to follow skills, they consistently say: Skills are just prose and aren't enforcable.
 
-#### Convert skills to scripts
+Agents undeniably write fast code and we need to use more of that to convert skills to static analysis. Fast, open-source parsers are available for any language which means we can convert tactical rules into enforcements.
 
-Things that can be converted to script verification should be. I don't often work in Ruby anymore, but it has a great extensible system called [RuboCop](https://rubocop.org/). RuboCop claims to be a linter and formatter, but it allows much broader style guidance than most linter formatters. It operates of a series of rules, and you can write your own rules.
+What can be converted from prose to a enforced rule in code will be different for different languages. 
 
-I believe that every language is going to need an easily extensible scripted guard system that converts agent suggestions into enforcement. 
+For example, no test should ever mock what it is testing! For Ruby and rspec, the class is passed in as code and so its very easy to have the agent write a parsing rule that looks for that constant/class and makes sure no methods are ever stubbed or mocked.
 
-I typically work in TypeScript and the ESLint system isn't sufficient for this kind of work. Here are few rules I use to ensure unit tests are reliable and easy to verify:
+For JS/TS test descriptions tend to be strings, and it requires more enforced conventions to establish the subject easily. With those conventions you can point your parser at the test and the same assurances. It requires more pre-work to enforce.
 
-- Test files should map, one to one, with source files
-- Each test should be setup with [https://xp123.com/3a-arrange-act-assert/](AAA - Arrange, Act, Assert)
-- Assertions should as literal as possible and logic free
-- Don't extract helper functions to make the tests DRYer
+Currently the other language/library limitation has to do with these rule enforcements. Ruby has the awesome and extensible [RuboCop](https://rubocop.org/) library. It builds an interface for creating these rules and applying them to specific areas of the code. 
+
+Other ecosystems, cough-TS-cough, are all over the map and so home grown solutions are needed. The agents can do that. They love inventing new frameworks, but they are irrasibly overconfident in their abilities. I recommend doing it and with care. You have just built a secondary product into your real code base.
+
+### Useful prose and enforced rules
+
+The testing pyramid can be written into a good skill, and it will reduce test
+run time while increasing coverage. It can't easily be enforced via a script though.
+
+#### Testing (soft) skills
+
+Here are some important testing concepts that probably can't be easily converted from skill to enforced rules:
+
+- Ensure that the tests are exercising and asserting on logic, not just running through code for coverage
+- Assertions should be as literal as possible
 - Only mock things that make the tests clearer
-- Only test logic in the class; don't exhaustively test its dependencies
+- Only test logic in the module; don't exhaustively test its dependencies
+- Don't [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) tests
 
-Some of these things are fuzzy and need to stay are in the land of agent markdown. For example, the last items above is about the test pyramid. My and my agent partners have not found a good way to test that. At my last job, pre-agentic development we were using test run time to estimate where on the pyramid tests were. It's possible something like that could happen in a bigger project.
+#### Enforced (hard) rules
 
-Getting logic out of the tests so they are more literal is very scriptable. Figuring out what kinds of things the agent does and then asking them to guard against that will incentivize them to think of other loopholes. Supervisor agents like this take their jobs a bit too seriously and become those kind of cops that end up in the news for murder. So, this too required developer oversight. You have a job, and this is it!
+Convert everything you can to parsed and scripted guard rules:
 
-#### Subagent supervision: the lite version
+- Use [AAA](https://dev.to/coderjay06/the-three-a-s-of-unit-testing-b22). This can be hack enforced by expecting blank lines between sections and then introducing the prose on failure.
+- Test locations should mirror the name and location of their tested module
+- No logic in tests. This can happen via banning specific typical DRYing methods
 
-For projects where strict vibe coding is the goal, expect to work slower or at a much greater cost.
+### Supervision
 
-A cheap agent supervised system starts with the main agent being a coordinator and two subagents with roles worker and supervisor. The coordinator has a task: Backfill tests on this file and get to 95% coverage. Most of the micro supervisor systems I have built to do this kind of work then pass the goal to the supervisor, who is higher reasoning and comes up with a recommended approach. The goal and the recommended approach then go to the worker who is lower reasoning. When the worker sub-agent claims it is done, it tells the coordinator who then asks the supervisor whether the work is acceptable. They go back and forth until the supervisor is satisfied.
-
-In theory this should work. In practice, the coordinator remains motivated to get the task done quickly and will cut corners. It often does some of the work itself, particularly the supervision. Sometimes it shares context with the subagents so they essentially are in on the coordinators goal, and the subagents cheat their way to a fast finish.
-
-This kind of flow is also limited by the coding agent product. For example, Codex decided from one day to the next not to allow subagents unless explicitly approved by the user. The coordinating agent saw that and just started doing all the work without asking the user for approval.
-
-Subagent spawning can be very slow too. Waiting on MCP servers and loading all the context from skills and rules takes a long time per new subagent. So this kind of testing verification requires: 
-
-1. good rules
-2. more time
-3. more money
-
-It does mean you are less in the frustrating supervision role of telling your agents to follow skills, commands and rules.
-
-Combining shell scripting blocks with a supervision system is probably a sweet spot that could be faster with that scripted feedback.
-
-#### Supervision writ large
-
-Systems like [https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04](Gas Town) have a massive infrastructure of coordinate subagents keeping everything in check. These include upwards of 20 agents working at once. It throws out a lot of its work as things go awry, but it doesn't matter because it is heavily supervised and churning through so much code that things land.
-
-For each developer to run 20-40 simultaneous agents is expensive. Back of the envelope calculation: Let's imagine that running those agent costs $10 per quarter hour. That's $1600 per week; $6,880 per month; $82,560 per year. That's a salary of some sort. Depending on your global location it is quite a good one. 
-
-I haven't seen stats about how many lines of code lands for that agent salary. It is definitely more than a junior dev. I'm not sure it is more than me writing agentically *in* the loop instead of *on* the loop. Given a good agent, rules, scripts and skills, I can average ~1000 lines of code an hour, reviewed for quality.
-
-The other thing that worries me about these massive swarms of agents is their inefficiency. A significant amount of the work doesn't land, but it still burns bright at the data center. I currently live in West Oakland where residents are fighting a data center that will increase pollution and their energy costs. Many communities are having this fight, and so the morality of deliberate inefficiency is suspect.
-
-### Giving agents their missing senses
-
-Agents are so magical that they seem like they have human capabilities that they don't. They produce amazing visual representations and so it's hard to keep in mind that they don't have eyes. 
-
-In an application that produces music, there has to be an elaborate verification system to match what's important about the application and hearing sounds.
-
-I worked for several months, I worked on a project that rendered engineering drawings via the GPU. The location of lines and shapes was deterministic and that determinism was necessary because engineering is not art. Several rounds of E2E testing efforts were very slow and frustrating. When I forced it to generate screenshot and mark measurement points on those screenshots I was able to let it borrow my eyes when it spent more that two cycles guessing at the right location. I also had it build an internal and independent set of calculators for determining shape locations.
+Because agents are using their increased smarts to be better at gaming the system, adversarial supervision systems can enforce the soft skills. The greater the supervision, the greater the quality. Unfortunately, the cost is the literal token cost, plus the slower development time. I'm planning to write separately about supervision systems, but it spans the gamun: home grow calls to review code vs. huge agent systems like [Gastown](https://github.com/gastownhall/gastown).
 
 ## Summing it up
 
 - Tests keep the agents honest about their accomplishments
 - Invest in test quality
 - Enforce quality via scripts when possible and agent guidance when not
-- When you have system you trust, experiment with supervised flows
+- When compliance is critical, and agent supervision
