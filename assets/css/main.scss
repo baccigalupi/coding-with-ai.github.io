@@ -29,6 +29,7 @@ $border-radius: 1.5rem;
 $border-radius-lg: 3rem;
 $border-radius-sm: .75rem;
 
+$font-size-base: 1.0625rem;
 $h1-font-size: 1.75rem;
 $h2-font-size: 1.5rem;
 $h3-font-size: 1.25rem;
@@ -36,8 +37,8 @@ $h4-font-size: 1rem;
 $h5-font-size: 0.9rem;
 $h6-font-size: 0.75rem;
 
-$font-family-body: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-$font-family-monospace: $font-family-body;
+$font-family-body: "Roboto Slab", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 $font-family-headings: "Martian Mono", 'Courier New', Courier, monospace;
 $font-family-headline: "Silkscreen", 'Courier New', Courier, monospace;
 
@@ -61,7 +62,7 @@ h4, h5, h6 {
   font-weight: bold;
 }
 h1, h2, h3 {
-  font-family: $font-family-headings;
+  font-family: $font-family-headline;
   font-optical-sizing: auto;
   font-variation-settings:
     "wdth" 100;
@@ -117,6 +118,11 @@ h1, h2, h3 {
 
 .about-author-image {
   max-width: 150px;
+}
+
+#site-header,
+.card.chat-bubble {
+  font-family: $font-family-monospace;
 }
 
 .card.chat-bubble {

@@ -11,10 +11,11 @@ layout: default
 
   <aside class="home-recent-posts" id="recent-posts">
     <h3 class="mt-3">Recent posts</h3>
-    <ul>
+    <ul class="list-unstyled">
       {% for post in site.posts limit:3 %}
       <li>
         <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        <p>{{ post.description }}</p>
       </li>
       {% endfor %}
     </ul>

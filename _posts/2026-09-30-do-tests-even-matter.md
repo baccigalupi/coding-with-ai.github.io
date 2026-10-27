@@ -8,6 +8,9 @@ permalink: /do-tests-even-matter
 
 # Do tests even matter?
 
+{{ page.date | date: "%B %-d, %Y" }}
+{: .fs-5 .mt-0}
+
 Recently I saw this post: [Do Frameworks Matter Anymore?](https://brookslybrand.com/posts/do-frameworks-matter-anymore/). I had to read it and not because of the answer or opinion. The reason I *had* to read the post was because of the tone of the title: confused despair. The rules of development are so unclear now. There are so many questions that are beleaguered shrugs in the form of: Does ___ matter?
 
 Here are things I hear from developers in the same tone:
