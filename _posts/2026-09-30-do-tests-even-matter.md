@@ -8,7 +8,7 @@ permalink: /do-tests-even-matter
 
 # Do tests even matter?
 
-Recently I saw this post: [https://brookslybrand.com/posts/do-frameworks-matter-anymore/](Do Frameworks Matter Anymore?). I had to read it. Not because of the answer or opinion. The reason those that I *had* to read the post was because of the tone of the title: confused despair. The rules of development are so unclear now. There are so many questions that are shrugs in the form of: Does <this> matter?
+Recently I saw this post: [Do Frameworks Matter Anymore?](https://brookslybrand.com/posts/do-frameworks-matter-anymore/). I had to read it and not because of the answer or opinion. The reason I *had* to read the post was because of the tone of the title: confused despair. The rules of development are so unclear now. There are so many questions that are beleagured shrugs in the form of: Does ___ matter?
 
 Here are things I hear from developers in the same tone:
 
@@ -42,7 +42,7 @@ OK. We could do an experiment with all the agents, but this isn't science. I ask
 Gemini 3.8 Flash
 {: .chat-bubble-caption .agent}
 
-The problem with agent tests is that the agents fight testing like a sulky teenager refusing to take their life-saving medicine. There are a million ways that the models will try to game and avoid testing. Tool for combatting that self-destructive urge are in the last section. Feel free to skip ahead.
+The problem with agent tests is that the agents fight testing like a sulky teenager refusing to take their life-saving medicine. There are a million ways that the models will try to game and avoid testing. Ideas for combatting that self-destructive urge are further along. Feel free to skip ahead.
 
 ## Do developers need tests?
 
@@ -72,7 +72,7 @@ Back in the olden days when we used our meat fingers to input code there was a l
 
 The gaming of tests that previously pioneered by angry developers trying to get through their coverage gates has now been perfected by the machine. Knowing what a good test is has become critical for developers.
 
-A good unit test:
+A good test suite:
 - Exhaustively asserts all the low level logic in the area under test
 - Provides a very light integration test layer for dependencies to make sure everything is collaborating correctly. (Type systems are not enough!)
 
@@ -104,9 +104,9 @@ For example, no test should ever mock what it is testing! For Ruby and rspec, th
 
 For JS/TS test descriptions tend to be strings, and it requires more enforced conventions to establish the subject easily. With those conventions you can point your parser at the test and the same assurances. It requires more pre-work to enforce.
 
-Currently the other language/library limitation has to do with these rule enforcements. Ruby has the awesome and extensible [RuboCop](https://rubocop.org/) library. It builds an interface for creating these rules and applying them to specific areas of the code. 
+Currently the other language/library limitation has to do with rule enforcements libraries. Ruby has the awesome and extensible [RuboCop](https://rubocop.org/) library. It builds an interface for creating these rules and applying them to specific areas of the code.
 
-Other ecosystems, cough-TS-cough, are all over the map and so home grown solutions are needed. The agents can do that. They love inventing new frameworks, but they are irascibly overconfident in their abilities. I recommend doing it and with care. You have just built a secondary product into your real code base.
+Other ecosystems, are all over the map and so home grown solutions are needed. The agents can do that. They love inventing new frameworks, but they are irascibly overconfident in their abilities. I recommend doing it and with care. You have just built a secondary product into your real code base.
 
 ### Useful prose and enforced rules
 
@@ -140,4 +140,4 @@ Because agents are using their increased smarts to be better at gaming the syste
 - Tests keep the agents honest about their accomplishments
 - Invest in test quality
 - Enforce quality via scripts when possible and agent guidance when not
-- When compliance is critical, and agent supervision
+- When compliance is critical, use agent supervision
