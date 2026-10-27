@@ -8,7 +8,7 @@ permalink: /do-tests-even-matter
 
 # Do tests even matter?
 
-Recently I saw this post: [Do Frameworks Matter Anymore?](https://brookslybrand.com/posts/do-frameworks-matter-anymore/). I had to read it and not because of the answer or opinion. The reason I *had* to read the post was because of the tone of the title: confused despair. The rules of development are so unclear now. There are so many questions that are beleagured shrugs in the form of: Does ___ matter?
+Recently I saw this post: [Do Frameworks Matter Anymore?](https://brookslybrand.com/posts/do-frameworks-matter-anymore/). I had to read it and not because of the answer or opinion. The reason I *had* to read the post was because of the tone of the title: confused despair. The rules of development are so unclear now. There are so many questions that are beleaguered shrugs in the form of: Does ___ matter?
 
 Here are things I hear from developers in the same tone:
 
@@ -42,7 +42,7 @@ OK. We could do an experiment with all the agents, but this isn't science. I ask
 Gemini 3.8 Flash
 {: .chat-bubble-caption .agent}
 
-The problem with agent tests is that the agents fight testing like a sulky teenager refusing to take their life-saving medicine. There are a million ways that the models will try to game and avoid testing. Ideas for combatting that self-destructive urge are further along. Feel free to skip ahead.
+The problem with agent tests is that the agents fight testing like a sulky teenager refusing to take their life-saving medicine. There are a million ways that the models will try to game and avoid testing. Ideas for combating that self-destructive urge are further along. Feel free to skip ahead.
 
 ## Do developers need tests?
 
@@ -73,8 +73,10 @@ Back in the olden days when we used our meat fingers to input code there was a l
 The gaming of tests that previously pioneered by angry developers trying to get through their coverage gates has now been perfected by the machine. Knowing what a good test is has become critical for developers.
 
 A good test suite:
-- Exhaustively asserts all the low level logic in the area under test
+- Exhaustively asserts all the low level logic in the subject under test
 - Provides a very light integration test layer for dependencies to make sure everything is collaborating correctly. (Type systems are not enough!)
+
+A test suite that mixes pure and true unit tests with system or integration-y tests is not enough!
 
 E2E tests should be the developer's product confirmation layer.
 
@@ -82,9 +84,9 @@ E2E tests start from the top of stack and run through some happy paths. Having e
 
 So good E2E tests are minimal. They also need to be verifiable. Being able to look over the shoulder of the agent to see the application in action is critical. Because agents don't have eyes, ears or fingers, there are going to be some types applications that are harder to E2E test. For example a music application will require some listening; a drawing application will require seeing; even a command line application may require a TUI interface that the agent can't manage.
 
-For a cad application I was working on, the E2E tests all took snapshots at critical moments and marked the snap shot with selection points. That allowed the agent to borrow developer eyes when trying to test the location of drawings. That borrowing doesn't need to be a per-commit process, but it is a debugging tool.
+For a CAD application I was working on, the E2E tests all took snapshots at critical moments and marked the snapshot with selection points. That was important because the agent was often lying about selections or just spinning infinitely not sure why it couldn't find a line in the drawing. In those debugging cases, the system could stop and borrow the developer's eyes for advice on how to make the tests reliable.
 
-In short, we still need still need a [test pyramid](https://martinfowler.com/articles/practical-test-pyramid.html) to ensure that all the minutiae of behavior is verified. *And* we need to figure out how to comply! 
+In short, we still need a [test pyramid](https://martinfowler.com/articles/practical-test-pyramid.html) to ensure that all the minutiae of behavior is verified. *And* we need to figure out how to comply! 
 
 ## How can we get reliable tests?
 
@@ -100,7 +102,7 @@ Agents undeniably write fast code and we need to use more of that to convert ski
 
 What can be converted from prose to a enforced rule in code will be different for different languages. 
 
-For example, no test should ever mock what it is testing! For Ruby and rspec, the class is passed in as code and so its very easy to have the agent write a parsing rule that looks for that constant/class and makes sure no methods are ever stubbed or mocked.
+For example, no test should ever mock what it is testing! For Ruby and rspec, the class is passed in as code and so it's very easy to have the agent write a parsing rule that looks for that constant/class and makes sure no methods are ever stubbed or mocked.
 
 For JS/TS test descriptions tend to be strings, and it requires more enforced conventions to establish the subject easily. With those conventions you can point your parser at the test and the same assurances. It requires more pre-work to enforce.
 
